@@ -5,7 +5,7 @@ Define function isSorted which takes A of type [int64] and returns a bool. {
   Let ok be true.
   For i from 1 to length(A)-1, do {
     Check whether A[i-1] <= A[i], if no {
-      Let ok be false.
+      Set ok to be false.
     }
   }
   Return ok.
