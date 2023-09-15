@@ -13,3 +13,26 @@ symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
        | "'" | '"' | "=" | "|" | "." | "," | ";" | "-" 
        | "+" | "*" | "?" | "\n" | "\t" | "\r" | "\f" | "\b";
 
+character = letter | digit | symbol | "_" | " " ;
+identifier = letter , { letter | digit | "_" } ;
+
+S = { " " | "\n" | "\t" | "\r" | "\f" | "\b" } ;
+
+termchr = "'" , character - "'" , "'";
+termstr = '"' , character - '"' , { character - '"' } , '"' ;
+
+printopt = ", followed by ", expr
+         | ", except when ", expr;
+
+printfn = "Print a line of " , expr , { printopt } , "."
+        | "Print " , expr , { printopt }, ".";
+
+article = "a" | "an" | "the";
+
+readfn = "Read " , article, " " type , " " , identifier , "."
+       | "Read " , expr , " " , type , [ "s" ] , " and store them in " , identifier , ".";
+
+fndecl = "Define function " , identifier , " which takes " , [ article ] , [ " copy of " ] , type , " and returns " , type , ".";
+
+vardecl = "Let " , identifier , " be " , expr , ".";
+
