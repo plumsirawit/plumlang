@@ -1,0 +1,31 @@
+Read an int32 N.
+Read N int64s and store them in xs.
+
+Define function isSorted which takes A of type [int64] and returns a bool. {
+  Let ok be true.
+  For i from 1 to length(A)-1, do {
+    Check whether A[i-1] <= A[i], if yes {
+      Do nothing.
+    } otherwise, do {
+      Let ok be false.
+    }
+  }
+  Return ok.
+}
+
+Define function bubbleSort which takes a copy of A of type [int64] and returns [int64]. {
+  While not isSorted(A), do {
+    For i from 1 to length(A)-1, do {
+      Check whether A[i-1] > A[i], if yes {
+        Swap A[i-1] with A[i].
+      }
+    }
+  }
+  Return A.
+}
+
+Let ys be bubbleSort(xs).
+For i from 0 to length(ys)-1, do {
+  Print ys[i], followed by a space, except when i == length(ys)-1.
+}
+Print a line.

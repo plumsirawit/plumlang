@@ -1,0 +1,21 @@
+Read 3 int32s N, M, P.
+Read N*M int64s inpline1.
+Read M*P int64s inpline2.
+Resize inpline1 to an array of shape (N, M) named A.
+Resize inpline2 to an array of shape (M, P) named B.
+Let C be an array of shape (N, P) filled with 0.
+
+For i from 0 to N-1, do {
+  For j from 0 to P-1, do {
+    For k from 0 to M-1, do {
+      Add A[i][k] * B[k][j] to C[i][j].
+    }
+  }
+}
+
+For i from 0 to N-1, do {
+  For j from 0 to P-1, do {
+    Print C[i][j], followed by a space, except when j == M-1.
+  }
+  Print a line.
+}

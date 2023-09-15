@@ -1,0 +1,14 @@
+Read 3 int32s N, M, P.
+Read N*M int64s inpline1.
+Read M*P int64s inpline2.
+Resize inpline1 to an array of shape (N, M) named A.
+Resize inpline2 to an array of shape (M, P) named B.
+
+Let C be A @ B.
+
+For i from 0 to N-1, do {
+  For j from 0 to P-1, do {
+    Print C[i][j], followed by a space, except when j == M-1.
+  }
+  Print a line.
+}

@@ -1,0 +1,16 @@
+Read an int32 N.
+Read N int64s and store them in xs.
+
+Define function quickSort which takes a copy of A of type [int64] and returns [int64]. {
+  If length(A) is 1, just return A.
+  Let pivot be A[0].
+  Let left be quickSort A[i such that A[i] <= pivot].
+  Let right be quickSort A[i such that A[i] > pivot].
+  Return left ++ right.
+}
+
+Let ys be quickSort(xs).
+For i from 0 to length(ys)-1, do {
+  Print ys[i], followed by a space, except when i == length(ys)-1.
+}
+Print a line.

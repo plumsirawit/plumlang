@@ -1,0 +1,35 @@
+Read an int32 N.
+Read N int64s and store them in xs.
+
+Define function isSorted which takes A of type [int64] and returns a bool. {
+  Let ok be true.
+  For i from 1 to length(A)-1, do {
+    Check whether A[i-1] <= A[i], if no {
+      Let ok be false.
+    }
+  }
+  Return ok.
+}
+
+Assert that isSorted(xs) is true.
+
+Define function binarySearch which takes A of type [int64] and x of type int64 and returns int32. {
+  Let lo be 0.
+  Let hi be length(A)-1.
+  While lo < hi, do {
+    Let mid be (lo + hi) // 2.
+    Check whether A[mid] < x, if yes {
+      Set lo to be mid+1.
+    } otherwise, do {
+      Set hi to be mid.
+    }
+  }
+  Return lo.
+}
+
+Read an int32 Q.
+For q from 1 to Q, do {
+  Read an int64 x.
+  Let result be binarySearch(xs, x).
+  Print a line of result.
+}
