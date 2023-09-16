@@ -1,0 +1,23 @@
+Let fib be an array of shape (11) filled with 0.
+Set fib[1] to be 1.
+Set fib[2] to be fib[0] + fib[1].
+Set fib[3] to be fib[1] + fib[2].
+Set fib[4] to be fib[2] + fib[3].
+Set fib[5] to be fib[3] + fib[4].
+Set fib[6] to be fib[4] + fib[5].
+Set fib[7] to be fib[5] + fib[6].
+Set fib[8] to be fib[6] + fib[7].
+Set fib[9] to be fib[7] + fib[8].
+Set fib[10] to be fib[8] + fib[9].
+
+Print a line of fib[0].
+Print a line of fib[1].
+Print a line of fib[2].
+Print a line of fib[3].
+Print a line of fib[4].
+Print a line of fib[5].
+Print a line of fib[6].
+Print a line of fib[7].
+Print a line of fib[8].
+Print a line of fib[9].
+Print a line of fib[10].

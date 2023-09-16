@@ -18,8 +18,11 @@ identifier = letter , { letter | digit | "_" } ;
 
 S = { " " | "\n" | "\t" | "\r" | "\f" | "\b" } ;
 
+type = "int32" | "int64" | "char" | "string";
+
 termchr = "'" , character - "'" , "'";
 termstr = '"' , character - '"' , { character - '"' } , '"' ;
+termint = digit - "0" , { digit } ;
 
 printopt = ", followed by ", expr
          | ", except when ", expr;
@@ -35,4 +38,7 @@ readfn = "Read " , article, " " type , " " , identifier , "."
 fndecl = "Define function " , identifier , " which takes " , [ article ] , [ " copy of " ] , type , " and returns " , type , ".";
 
 vardecl = "Let " , identifier , " be " , expr , ".";
+
+varassign = "Set " , identifier , " to be " , expr , ".";
+
 

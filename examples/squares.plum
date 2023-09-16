@@ -1,0 +1,14 @@
+Let sq1 be 1.
+Let sq2 be 2.
+Let sq3 be 3.
+Let sq4 be 4.
+
+Set sq1 to be sq1 * sq1.
+Set sq2 to be sq2 * sq2.
+Set sq3 to be sq3 * sq3.
+Set sq4 to be sq4 * sq4.
+
+Print a line of sq1.
+Print a line of sq2.
+Print a line of sq3.
+Print a line of sq4.
