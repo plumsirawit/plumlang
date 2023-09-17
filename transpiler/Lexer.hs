@@ -1,7 +1,7 @@
 module Lexer (plumLex) where
 import Data.Int (Int64)
 import Data.Char (isDigit, digitToInt, isAlpha, isLetter, isSpace, isAscii)
-import Base (Token(..))
+import Base (Token(..), Type(..))
 
 conditionToken :: Token -> String -> String -> Bool
 conditionToken tok tmpl st = length st >= length tmpl && take (length tmpl) st == tmpl
@@ -62,7 +62,7 @@ lexLiteral f st
   | head st == '\'' = lexUntilEndChar f (tail st)
   | isDigit (head st) = lexUntilEndNumber f (tail st) 0
   | isAscii (head st) && isLetter (head st) = lexUntilEndIdent f (tail st) [head st]
-  | head st `elem` "+-*/%{}[]()," = case f (tail st) of
+  | head st `elem` "+-*/%{}[](),<>=" = case f (tail st) of
                                     Just res -> Just (Symbol (head st) : res)
                                     Nothing  -> Nothing
   | isSpace (head st) = f (tail st)
@@ -79,8 +79,8 @@ plumLex st
   | otherwise = matchLexCases plumLex [
     (PrintALineOf,   "Print a line of"),
     (Print,          "Print"),
-    (FollowedBy,     "followed by"),
-    (ExceptWhen,     "except when"),
+    (FollowedBy,     ", followed by"),
+    (ExceptWhen,     ", except when"),
     (Read,           "Read the"),
     (Read,           "Read an"),
     (Read,           "Read a"),
@@ -96,5 +96,9 @@ plumLex st
     (WhichTakes,     "which takes a"),
     (CopyOf,         "copy of"),
     (AndStoreThemIn, "and store them in"),
-    (AndReturns,     "and returns")
+    (AndReturns,     "and returns"),
+    (Type TInt32,    "int32"),
+    (Type TInt64,    "int64"),
+    (Type TChar,     "char"),
+    (Type TString,   "string")
   ] st

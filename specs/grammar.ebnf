@@ -14,31 +14,47 @@ symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
        | "+" | "*" | "?" | "\n" | "\t" | "\r" | "\f" | "\b";
 
 character = letter | digit | symbol | "_" | " " ;
-identifier = letter , { letter | digit | "_" } ;
-
 S = { " " | "\n" | "\t" | "\r" | "\f" | "\b" } ;
 
-type = "int32" | "int64" | "char" | "string";
+tok_identifier = letter , { letter | digit | "_" } ;
+tok_string = '"' , { character - '"' | "\\" } , '"' ;
+tok_char = "'" , (character - "'" | ("\\" ,  letter)) , "'";
+tok_int64 = digit - "0" , { digit };
+tok_symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">" | "=" | "+" | "-" | "*" | "/" | "%" | "@";
+tok_print = "Print";
+tok_print_a_line_of = "Print a line of";
+tok_followed_by = "followed by";
+tok_except_when = "except when";
+tok_read = "Read the" | "Read an" | "Read a" | "Read ";
+tok_define_function = "Define function";
+tok_let = "Let";
+tok_set = "Set";
+tok_to = "to";
+tok_be = "be";
+tok_dot = ".";
+tok_which_takes = "which takes the" | "which takes an" | "which takes a";
+tok_copy_of = "copy of";
+tok_and_store_them_in = "and store them in";
+tok_and_returns = "and returns";
+tok_type = "int32" | "int64" | "char" | "string";
 
-termchr = "'" , character - "'" , "'";
-termstr = '"' , character - '"' , { character - '"' } , '"' ;
-termint = digit - "0" , { digit } ;
+constant = tok_string | tok_char | tok_int64;
+operation = "+" | "-" | "*" | "/" | "%" | "@" | "++";
+expr = tok_identifier | constant | ("-" , expr) | (expr , operation , expr );
 
-printopt = ", followed by ", expr
-         | ", except when ", expr;
+printopt = tok_followed_by, expr
+         | tok_except_when, expr;
 
-printfn = "Print a line of " , expr , { printopt } , "."
-        | "Print " , expr , { printopt }, ".";
+printfn = tok_print_a_line_of , expr , { printopt } , tok_dot
+        | tok_print , expr , { printopt }, tok_dot;
 
-article = "a" | "an" | "the";
+readfn = tok_read , { S } , tok_type , { S } , identifier , tok_dot
+       | tok_read , expr , { S } , tok_type , [ "s" ] , tok_and_store_them_in , identifier , tok_dot;
 
-readfn = "Read " , article, " " type , " " , identifier , "."
-       | "Read " , expr , " " , type , [ "s" ] , " and store them in " , identifier , ".";
+fndecl = tok_define_function , { S } , identifier , { S } , tok_which_takes , { S } , [ tok_copy_of ] , { S } , tok_type , { S } , tok_and_returns , { S } , tok_type , tok_dot;
 
-fndecl = "Define function " , identifier , " which takes " , [ article ] , [ " copy of " ] , type , " and returns " , type , ".";
+vardecl = tok_let , { S } , identifier , { S } , tok_be , { S } , expr , tok_dot;
 
-vardecl = "Let " , identifier , " be " , expr , ".";
-
-varassign = "Set " , identifier , " to be " , expr , ".";
+varassign = tok_set , { S } , identifier , { S } , tok_to , { S } , tok_be , expr , tok_dot;
 
 
