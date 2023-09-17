@@ -1,4 +1,4 @@
-letter = "A" | "B" | "C" | "D" | "E" | "F" | "G"
+base_letter = "A" | "B" | "C" | "D" | "E" | "F" | "G"
        | "H" | "I" | "J" | "K" | "L" | "M" | "N"
        | "O" | "P" | "Q" | "R" | "S" | "T" | "U"
        | "V" | "W" | "X" | "Y" | "Z" | "a" | "b"
@@ -7,19 +7,19 @@ letter = "A" | "B" | "C" | "D" | "E" | "F" | "G"
        | "q" | "r" | "s" | "t" | "u" | "v" | "w"
        | "x" | "y" | "z";
 
-digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
+base_digit = "0" | "1" | "2" | "3" | "4" | "5" | "6" | "7" | "8" | "9";
 
-symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
+base_symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">"
        | "'" | '"' | "=" | "|" | "." | "," | ";" | "-" 
        | "+" | "*" | "?" | "\n" | "\t" | "\r" | "\f" | "\b";
 
-character = letter | digit | symbol | "_" | " " ;
-S = { " " | "\n" | "\t" | "\r" | "\f" | "\b" } ;
+base_character = base_letter | base_digit | base_symbol | "_" | " " ;
+base_S = { " " | "\n" | "\t" | "\r" | "\f" | "\b" } ;
 
-tok_identifier = letter , { letter | digit | "_" } ;
-tok_string = '"' , { character - '"' | "\\" } , '"' ;
-tok_char = "'" , (character - "'" | ("\\" ,  letter)) , "'";
-tok_int64 = digit - "0" , { digit };
+tok_identifier = base_letter , { base_letter | base_digit | "_" } ;
+tok_string = '"' , { base_character - '"' | "\\" } , '"' ;
+tok_char = "'" , (base_character - "'" | ("\\" ,  base_letter)) , "'";
+tok_int64 = base_digit - "0" , { base_digit };
 tok_symbol = "[" | "]" | "{" | "}" | "(" | ")" | "<" | ">" | "=" | "+" | "-" | "*" | "/" | "%" | "@";
 tok_print = "Print";
 tok_print_a_line_of = "Print a line of";
@@ -48,13 +48,14 @@ printopt = tok_followed_by, expr
 printfn = tok_print_a_line_of , expr , { printopt } , tok_dot
         | tok_print , expr , { printopt }, tok_dot;
 
-readfn = tok_read , { S } , tok_type , { S } , identifier , tok_dot
-       | tok_read , expr , { S } , tok_type , [ "s" ] , tok_and_store_them_in , identifier , tok_dot;
+readfn = tok_read , { base_S } , tok_type , { base_S } , identifier , tok_dot
+       | tok_read , expr , { base_S } , tok_type , [ "s" ] , tok_and_store_them_in , identifier , tok_dot;
 
-fndecl = tok_define_function , { S } , identifier , { S } , tok_which_takes , { S } , [ tok_copy_of ] , { S } , tok_type , { S } , tok_and_returns , { S } , tok_type , tok_dot;
+fndecl = tok_define_function , { base_S } , identifier , { base_S } , tok_which_takes , { base_S } , [ tok_copy_of ] , { base_S } , tok_type , { base_S } , tok_and_returns , { base_S } , tok_type , tok_dot;
 
-vardecl = tok_let , { S } , identifier , { S } , tok_be , { S } , expr , tok_dot;
+vardecl = tok_let , { base_S } , identifier , { base_S } , tok_be , { base_S } , expr , tok_dot;
 
-varassign = tok_set , { S } , identifier , { S } , tok_to , { S } , tok_be , expr , tok_dot;
+varassign = tok_set , { base_S } , identifier , { base_S } , tok_to , { base_S } , tok_be , expr , tok_dot;
 
-
+stmt = printfn | readfn | fndecl | vardecl | varssign;
+prog = { stmt };
